@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>김시우 | 한화로보틱스 반도체 유지보수 엔지니어 지원자</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <h1 class="logo">SIWOO<span>.K</span></h1>
+            <ul class="nav-links">
+                <li><a href="index.html#home">HOME</a></li>
+                <li><a href="index.html#technical-core">TECHNICAL CORE</a></li>
+                <li><a href="index.html#data-analysis">DATA ANALYSIS</a></li>
+                <li><a href="index.html#projects">PROJECTS</a></li>
+                <li><a href="board.html">FREEBOARD</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 1. HOME -->
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content reveal">
+            <div class="badge">한화로보틱스 예비 반도체 유지보수 엔지니어</div>
+            <h2>데이터 기반의 정밀 진단과 <br><span class="highlight">Zero-Defect</span>을 실현합니다.</h2>
+            <p class="hero-subtext">장비의 원리를 분석하는 정밀함으로, 신뢰할 수 있는 협동 로봇 및 AGV/AMR 생태계를 구축하고 반도체 라인의 가동률을 극대화하는 엔지니어, <strong>김시우</strong>입니다.</p>
+            <a href="#technical-core" class="cta-button">역량 확인하기 <i class="fas fa-arrow-down"></i></a>
+        </div>
+    </section>
+
+    <!-- 2. TECHNICAL CORE -->
+    <section id="technical-core" class="section-padding bg-light">
+        <div class="container">
+            <h2 class="section-title reveal">TECHNICAL <span>CORE</span></h2>
+            <p class="section-subtitle reveal">회로에서 제어까지, 설비의 심장과 신경망을 진단하는 Full-stack 하드웨어 역량</p>
+
+            <div class="grid-layout">
+                <!-- Circuit Diagnosis -->
+                <div class="card reveal fade-left">
+                    <div class="card-icon"><i class="fas fa-microchip"></i></div>
+                    <h3>정밀 진단 (Circuit Diagnosis)</h3>
+                    <p>옴의 법칙, 테브난 정리, 매쉬 해석법 등 <strong>회로망 해석 능력</strong>을 보유하고 있으며, BJT, FET, OP-AMP의 특성을 깊이 이해합니다.</p>
+                    <ul class="skill-list">
+                        <li><strong>KiCAD:</strong> 심볼 추가 및 전문적인 회로 설계 실습</li>
+                        <li><strong>TinkerCAD:</strong> 소자 응용 회로 모의실험 및 검증</li>
+                    </ul>
+                    <p class="impact-text"><i class="fas fa-check-circle"></i> 한화 반도체 장비의 전장 결함 발생 시, 즉각적인 원인 파악 및 수리 가능</p>
+                </div>
+
+                <!-- System Control -->
+                <div class="card reveal fade-right">
+                    <div class="card-icon"><i class="fas fa-cogs"></i></div>
+                    <h3>자동화 및 안전 (System Control)</h3>
+                    <p>전기공압회로의 원리를 이해하고 실제 장비를 제어하며, 반도체 클린룸의 핵심인 <strong>'안전사고 Zero'</strong> 마인드를 갖추었습니다.</p>
+                    <ul class="skill-list">
+                        <li><strong>FluidSim:</strong> 전기공압회로 설계 및 솔레노이드 밸브 정밀 제어</li>
+                        <li><strong>Arduino & Python (EV3):</strong> 자이로/초음파/컬러 센서 데이터 기반 모터 제어</li>
+                    </ul>
+                    <p class="impact-text"><i class="fas fa-shield-alt"></i> 한화 협동 로봇 운용 중 발생 가능한 안전사고 완벽 예방 및 라인 안정화 기여</p>
+                </div>
+            </div>
+            
+            <div class="image-gallery reveal">
+                 <!-- Placeholders for generated images -->
+                <div class="gallery-item glass">
+                    <h4>회로 설계 (KiCAD/TinkerCAD)</h4>
+                    <div class="img-placeholder" id="kicad-img"></div>
+                </div>
+                <div class="gallery-item glass">
+                    <h4>공압 제어 (FluidSim)</h4>
+                    <div class="img-placeholder" id="fluidsim-img"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. DATA ANALYSIS -->
+    <section id="data-analysis" class="section-padding bg-dark text-white">
+        <div class="container">
+            <h2 class="section-title reveal">DATA <span>ANALYSIS</span></h2>
+            <p class="section-subtitle reveal text-gray">감각이 아닌 데이터를 통한 기구학 해석 및 예방 정비</p>
+
+            <div class="analysis-content">
+                <div class="analysis-text reveal fade-left">
+                    <h3>정밀 궤적 제어 & 유지보수 시뮬레이션</h3>
+                    <p>단순한 부품 교체가 아닌 데이터에 근거한 <strong>예방 정비(Preventive Maintenance)</strong>를 지향합니다.</p>
+                    <ul class="bullet-list">
+                        <li><strong>엑셀 기반 기구학 해석:</strong> 슬라이더 크랭크 메커니즘의 변위 해석</li>
+                        <li><strong>오차 예측:</strong> 절삭날 변위 계산 및 시각적 그래프 도출</li>
+                        <li><strong>궤적 제어:</strong> 사인/코사인 함수를 활용한 정밀 궤적 시뮬레이션 구현</li>
+                    </ul>
+                    <div class="impact-box mt-20">
+                        <p><strong><i class="fas fa-chart-line"></i> 기대 효과:</strong> 한화로보틱스의 정밀 AGV/AMR 및 로봇 팔 운용 시, 기구적 오차를 수치로 미리 예측하여 설비 다운타임을 최소화합니다.</p>
+                    </div>
+                </div>
+                <div class="analysis-visual reveal fade-right glass p-20">
+                    <div class="img-placeholder large" id="kinematics-img"><span class="loading-text">기구학 해석 변위도 데이터 로딩 중...</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. PROJECTS -->
+    <section id="projects" class="section-padding">
+        <div class="container">
+            <h2 class="section-title reveal">STRATEGIC <span>PROJECTS</span></h2>
+            <p class="section-subtitle reveal">논리적 사고와 TRIZ 기법을 통한 창의적 문제 해결 사례</p>
+
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-content card hover-effect">
+                        <span class="date">PBL 우수 사례</span>
+                        <h3>'우리좀함' 달리는 로봇 역학 프로젝트</h3>
+                        <p>마인드맵과 시장 분석을 통해 로봇의 주행 안정성 문제를 정의하고, 해결책을 도출했습니다.</p>
+                        <div class="triz-section">
+                            <h4><i class="fas fa-lightbulb highlight"></i> TRIZ (모순 해결) 적용</h4>
+                            <p>주행 속도를 높이면 불안정해지는 물리적 모순을 TRIZ 기법으로 분석, 구조적 변경을 통해 무게중심을 최적화하여 해결했습니다.</p>
+                        </div>
+                        <p class="impact-text mt-10"><i class="fas fa-cogs"></i> 복잡한 반도체 자동화 장비의 기계적 한계를 창의적으로 돌파하는 문제 해결력 증명</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal">
+                    <div class="timeline-content card hover-effect">
+                        <span class="date">EV3 자율주행</span>
+                        <h3>센서 융합 기반 정밀 제어 시스템</h3>
+                        <p>Python을 이용하여 다양한 센서(자이로, 초음파, 컬러)의 데이터를 실시간 수집 및 융합하여 모터를 제어하는 자율 이동 로봇을 구현했습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. COMMUNITY & CONTACT -->
+    <section id="community" class="section-padding bg-light">
+        <div class="container">
+            <h2 class="section-title reveal">COMMUNITY & <span>CONTACT</span></h2>
+            <p class="section-subtitle reveal">끊임없이 공유하고 성장하는 엔지니어 네트워크</p>
+
+            <div class="contact-grid">
+                <!-- Guestbook / Blog -->
+                <div class="community-panel card reveal fade-left">
+                    <h3><i class="fas fa-comments"></i> 동료 피드백 (자유게시판)</h3>
+                    <div class="mt-20">
+                        <p>새로운 자유게시판 서비스가 오픈되었습니다! <br>엔지니어 간의 자유로운 피드백과 소통을 시작해보세요.</p>
+                        <br>
+                        <a href="board.html" class="btn btn-primary">자유게시판으로 이동</a>
+                    </div>
+
+                    <div class="blog-link mt-20">
+                        <a href="#" class="tech-link"><i class="fas fa-book-open"></i> 최근 기술 포스트: ChatGPT를 활용한 최신 로봇 산업 실태 조사 (클릭)</a>
+                    </div>
+                </div>
+
+                <!-- Contact & Social -->
+                <div class="contact-info card reveal fade-right">
+                    <h3><i class="fas fa-address-card"></i> Contact Information</h3>
+                    <div class="profile-details">
+                        <p><i class="fas fa-envelope"></i> siwoo.kim@example.com</p>
+                        <p><i class="fas fa-phone"></i> 010-XXXX-XXXX</p>
+                        
+                        <div class="social-links mt-20">
+                            <a href="#" class="social-icon tooltip" data-tooltip="코드 관리"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="#" class="social-icon tooltip" data-tooltip="전문 네트워크"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                            <a href="#" class="social-icon tooltip" data-tooltip="학습 포트폴리오 채널"><i class="fab fa-youtube"></i> YouTube</a>
+                            <a href="#" class="social-icon tooltip" data-tooltip="학과 홈페이지"><i class="fas fa-university"></i> Univ Info</a>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-20">
+                        <p class="small-text text-gray">※ 본 포트폴리오는 반응형으로 제작되었으며, GitHub Pages를 통해 글로벌 배포되었습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <h2>SIWOO.K</h2>
+            <p>한화로보틱스와 함께 미래 산업의 표준을 제시할 준비된 엔지니어.</p>
+            <p class="copyright">&copy; 2026 Siwoo Kim. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
