@@ -7,11 +7,46 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* 게시판 커스텀 스타일 */
+        .post-card { background: white; border-radius: 12px; padding: 25px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; border: 1px solid #eee; }
+        .post-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #f1f1f1; padding-bottom: 12px; }
+        .post-author { font-weight: 700; color: #333; font-size: 1.1rem; }
+        .post-date { font-size: 0.85rem; color: #999; margin-left: 8px; }
+        .post-content { line-height: 1.7; color: #444; margin-bottom: 25px; white-space: pre-wrap; min-height: 50px; }
+        
+        /* 반응 및 액션 바 */
+        .action-bar { display: flex; gap: 15px; margin-top: 15px; padding-top: 15px; border-top: 1px solid #f5f5f5; flex-wrap: wrap; }
+        .action-btn { cursor: pointer; background: #f8f9fa; border: 1px solid #eee; border-radius: 20px; padding: 6px 14px; color: #666; font-size: 0.85rem; transition: 0.2s; display: flex; align-items: center; gap: 6px; }
+        .action-btn:hover { background: #fff; border-color: #ff6b6b; color: #ff6b6b; }
+        .action-btn.dislike:hover { border-color: #4b7bec; color: #4b7bec; }
+        .action-btn i { font-size: 0.9rem; }
+
+        /* 댓글 영역 */
+        .comment-section { background: #f9f9fb; border-radius: 10px; padding: 20px; margin-top: 20px; border: 1px solid #f0f0f5; }
+        .comment-list { list-style: none; padding: 0; margin-bottom: 15px; }
+        .comment-item { padding: 10px 0; border-bottom: 1px dashed #e0e0e0; font-size: 0.9rem; color: #555; }
+        .comment-item:last-child { border-bottom: none; }
+        .comment-item strong { color: #333; margin-right: 8px; }
+        
+        .comment-form { display: flex; gap: 10px; margin-top: 10px; }
+        .comment-input { flex: 1; padding: 10px 15px; border: 1px solid #ddd; border-radius: 25px; outline: none; font-size: 0.9rem; transition: 0.3s; }
+        .comment-input:focus { border-color: #ff6b6b; box-shadow: 0 0 5px rgba(255,107,107,0.2); }
+        
+        .btn-small { padding: 5px 12px; font-size: 0.8rem; border-radius: 6px; cursor: pointer; border: 1px solid #ddd; background: #fff; transition: 0.2s; }
+        .btn-small:hover { background: #f1f1f1; border-color: #bbb; }
+        .btn-delete { color: #e74c3c; border-color: #fadbd8; }
+        .btn-delete:hover { background: #fdedec; border-color: #e74c3c; }
+
+        /* 유틸리티 */
+        .w-100 { width: 100%; }
+        .mt-10 { margin-top: 10px; }
+        .text-center { text-align: center; }
+    </style>
 </head>
 <body class="bg-light">
 
-    <!-- Navigation -->
-    <nav id="navbar" style="position: sticky; top: 0; background: #fff;">
+    <nav id="navbar" style="position: sticky; top: 0; background: #fff; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
         <div class="nav-container">
             <h1 class="logo">SIWOO<span>.K</span></h1>
             <ul class="nav-links">
@@ -24,58 +59,221 @@
         </div>
     </nav>
 
-    <div class="container mt-20" style="padding-top: 50px; min-height: 80vh;">
-        <div class="board-header">
-            <h2><i class="fas fa-clipboard-list"></i> 자유게시판 (Freeboard)</h2>
-            <p class="text-gray">질문, 피드백 및 자유로운 소통 공간입니다.</p>
-            <button class="btn btn-primary mt-10" onclick="openWriteModal()">글쓰기 <i class="fas fa-pen"></i></button>
+    <div class="container mt-20" style="padding-top: 50px; min-height: 80vh; max-width: 850px; margin: 0 auto;">
+        <div class="board-header text-center" style="margin-bottom: 50px;">
+            <h2 style="font-size: 2.2rem;"><i class="fas fa-edit" style="color: #ff6b6b; margin-right: 15px;"></i>자유게시판</h2>
+            <p class="text-gray" style="margin-top: 10px;">시우님의 포트폴리오를 보고 궁금한 점이나 응원을 남겨주세요!</p>
+            <button class="btn btn-primary mt-10" style="padding: 12px 30px; font-weight: 600;" onclick="openWriteModal()">글쓰기 <i class="fas fa-pen-nib"></i></button>
         </div>
 
-        <div class="board-list mt-20" id="board-container">
-            <!-- Posts will be injected here via JS -->
-        </div>
+        <div id="board-container">
+            </div>
     </div>
 
-    <!-- Edit/Write Modal -->
     <div id="boardModal" class="modal">
-        <div class="modal-content card">
+        <div class="modal-content card" style="max-width: 600px;">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h3 id="modal-title">새 글 작성</h3>
+            <h3 id="modal-title" style="margin-bottom: 20px;">새 게시글 작성</h3>
             <div class="form-group">
-                <input type="text" id="post-author" placeholder="작성자 닉네임" required>
+                <label for="post-author" style="display:block; margin-bottom: 5px; font-size: 0.9rem; font-weight: 600;">닉네임</label>
+                <input type="text" id="post-author" placeholder="닉네임을 입력하세요" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
             </div>
-            <div class="form-group">
-                <input type="password" id="post-password" placeholder="비밀번호 (수정/삭제용)" required>
-            </div>
-            <div class="form-group">
-                <textarea id="post-content" rows="4" placeholder="내용을 입력하세요..." required></textarea>
-            </div>
-            <input type="hidden" id="post-id">
-            <button class="btn btn-primary w-100" id="save-btn" onclick="savePost()">저장하기</button>
-        </div>
-    </div>
-
-    <!-- Password Prompt Modal for Edit/Delete -->
-    <div id="pwdModal" class="modal">
-        <div class="modal-content card" style="max-width: 400px;">
-            <span class="close-btn" onclick="closePwdModal()">&times;</span>
-            <h3>비밀번호 확인</h3>
-            <p id="pwd-msg" class="text-gray small-text">해당 글을 관리하기 위해 비밀번호를 입력해주세요.</p>
             <div class="form-group mt-10">
-                <input type="password" id="confirm-pwd" placeholder="비밀번호 입력">
+                <label for="post-content" style="display:block; margin-bottom: 5px; font-size: 0.9rem; font-weight: 600;">내용</label>
+                <textarea id="post-content" rows="8" placeholder="내용을 입력하세요..." style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; resize: vertical;"></textarea>
             </div>
-            <input type="hidden" id="pwd-action-type">
-            <input type="hidden" id="pwd-post-id">
-            <button class="btn btn-primary w-100 mt-10" onclick="verifyPassword()">확인</button>
+            <button class="btn btn-primary w-100 mt-20" style="padding: 15px;" onclick="savePost()">게시하기</button>
         </div>
     </div>
 
-    <footer>
-        <div class="footer-content" style="padding: 20px;">
-            <p>&copy; 2026 Siwoo Kim. All rights reserved.</p>
+    <div id="pwdModal" class="modal">
+        <div class="modal-content card" style="max-width: 380px;">
+            <span class="close-btn" onclick="closePwdModal()">&times;</span>
+            <h3 class="text-center"><i class="fas fa-lock" style="color: #e74c3c;"></i> 게시글 삭제</h3>
+            <p class="text-gray small-text text-center mt-10">삭제를 원하시면 관리자 비밀번호를 입력하세요.</p>
+            <div class="form-group mt-20">
+                <input type="password" id="confirm-pwd" placeholder="비밀번호 입력" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; text-align: center;">
+            </div>
+            <input type="hidden" id="pwd-post-id">
+            <button class="btn btn-primary w-100 mt-10" style="background: #e74c3c; border: none; padding: 12px;" onclick="verifyPassword()">삭제 확인</button>
+        </div>
+    </div>
+
+    <footer style="margin-top: 60px; border-top: 1px solid #eee;">
+        <div class="footer-content text-center" style="padding: 30px;">
+            <p class="text-gray" style="font-size: 0.9rem;">&copy; 2026 Siwoo Kim. All rights reserved.</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        const ADMIN_PWD = "0429"; // 고정된 삭제 비밀번호
+        let posts = JSON.parse(localStorage.getItem('siwoo_board_posts')) || [];
+
+        // 게시글 렌더링 함수
+        function renderPosts() {
+            const container = document.getElementById('board-container');
+            if (posts.length === 0) {
+                container.innerHTML = '<div class="text-center" style="padding: 100px 0; color: #bbb;"><i class="fas fa-inbox fa-3x"></i><p class="mt-10">등록된 게시글이 없습니다. 첫 글을 남겨보세요!</p></div>';
+                return;
+            }
+
+            container.innerHTML = '';
+            // 최신순 정렬
+            posts.sort((a, b) => b.id - a.id).forEach(post => {
+                const postEl = document.createElement('div');
+                postEl.className = 'post-card';
+                postEl.innerHTML = `
+                    <div class="post-header">
+                        <div>
+                            <span class="post-author">${post.author}</span>
+                            <span class="post-date">${post.date}</span>
+                        </div>
+                        <button class="btn-small btn-delete" onclick="openDeleteModal('${post.id}')"><i class="fas fa-trash-alt"></i> 삭제</button>
+                    </div>
+                    <div class="post-content">${post.content}</div>
+                    
+                    <div class="action-bar">
+                        <button class="action-btn" onclick="updateReaction(${post.id}, 'likes')">
+                            <i class="fas fa-thumbs-up"></i> 좋아요 <strong>${post.likes || 0}</strong>
+                        </button>
+                        <button class="action-btn dislike" onclick="updateReaction(${post.id}, 'dislikes')">
+                            <i class="fas fa-thumbs-down"></i> 싫어요 <strong>${post.dislikes || 0}</strong>
+                        </button>
+                        <button class="action-btn" onclick="document.getElementById('comment-input-${post.id}').focus()">
+                            <i class="fas fa-comment-dots"></i> 댓글 <strong>${post.comments ? post.comments.length : 0}</strong>
+                        </button>
+                    </div>
+
+                    <div class="comment-section">
+                        <ul class="comment-list" id="comment-list-${post.id}">
+                            ${(post.comments || []).map(c => `
+                                <li class="comment-item">
+                                    <strong>${c.user}</strong> ${c.text}
+                                </li>
+                            `).join('')}
+                        </ul>
+                        <div class="comment-form">
+                            <input type="text" id="comment-input-${post.id}" class="comment-input" placeholder="따뜻한 댓글을 남겨주세요...">
+                            <button class="btn btn-primary" style="padding: 8px 20px; border-radius: 20px;" onclick="addComment(${post.id})">등록</button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(postEl);
+            });
+        }
+
+        // 새 게시글 저장
+        function savePost() {
+            const author = document.getElementById('post-author').value.trim();
+            const content = document.getElementById('post-content').value.trim();
+
+            if (!author || !content) {
+                alert("닉네임과 내용을 모두 입력해주세요.");
+                return;
+            }
+
+            const newPost = {
+                id: Date.now(),
+                author,
+                content,
+                date: new Date().toLocaleString(),
+                likes: 0,
+                dislikes: 0,
+                comments: []
+            };
+
+            posts.push(newPost);
+            updateStorage();
+            closeModal();
+            renderPosts();
+        }
+
+        // 좋아요/싫어요 업데이트
+        function updateReaction(id, type) {
+            const idx = posts.findIndex(p => p.id == id);
+            if (idx !== -1) {
+                posts[idx][type] = (posts[idx][type] || 0) + 1;
+                updateStorage();
+                renderPosts();
+            }
+        }
+
+        // 댓글 추가 함수
+        function addComment(id) {
+            const input = document.getElementById(`comment-input-${id}`);
+            const text = input.value.trim();
+
+            if (!text) {
+                alert("댓글 내용을 입력해주세요.");
+                return;
+            }
+
+            const idx = posts.findIndex(p => p.id == id);
+            if (idx !== -1) {
+                if (!posts[idx].comments) posts[idx].comments = [];
+                posts[idx].comments.push({
+                    user: "방문자",
+                    text: text
+                });
+                updateStorage();
+                input.value = ""; // 입력창 초기화
+                renderPosts();
+            }
+        }
+
+        // 모달 제어 함수들
+        function openWriteModal() {
+            document.getElementById('post-author').value = "";
+            document.getElementById('post-content').value = "";
+            document.getElementById('boardModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('boardModal').style.display = 'none';
+        }
+
+        function openDeleteModal(id) {
+            document.getElementById('pwd-post-id').value = id;
+            document.getElementById('confirm-pwd').value = "";
+            document.getElementById('pwdModal').style.display = 'block';
+        }
+
+        function closePwdModal() {
+            document.getElementById('pwdModal').style.display = 'none';
+        }
+
+        // 관리자 비밀번호 확인 후 삭제
+        function verifyPassword() {
+            const id = document.getElementById('pwd-post-id').value;
+            const pwdInput = document.getElementById('confirm-pwd').value;
+
+            if (pwdInput === ADMIN_PWD) {
+                if (confirm("정말로 이 게시글을 삭제하시겠습니까?")) {
+                    posts = posts.filter(p => p.id != id);
+                    updateStorage();
+                    renderPosts();
+                    closePwdModal();
+                }
+            } else {
+                alert("관리자 비밀번호가 일치하지 않습니다.");
+                document.getElementById('confirm-pwd').value = "";
+            }
+        }
+
+        function updateStorage() {
+            localStorage.setItem('siwoo_board_posts', JSON.stringify(posts));
+        }
+
+        // 페이지 로드 시 게시글 표시
+        window.onload = renderPosts;
+
+        // 모달 외곽 클릭 시 닫기
+        window.onclick = function(event) {
+            const writeModal = document.getElementById('boardModal');
+            const pwdModal = document.getElementById('pwdModal');
+            if (event.target == writeModal) closeModal();
+            if (event.target == pwdModal) closePwdModal();
+        }
+    </script>
 </body>
 </html>
